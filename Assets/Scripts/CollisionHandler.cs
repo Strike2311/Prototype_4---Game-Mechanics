@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class CollisionHandler : MonoBehaviour
@@ -22,16 +23,21 @@ public class CollisionHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Powerup")) {
-            powerUpRing.SetActive(true);
-            powerUpTimer = Time.time;
+            StartCoroutine(PowerupCountdownRoutine());
             Destroy(other.gameObject);
         } else {
-            Debug.Log("Hit a ball");
+
             if (powerUpRing.activeSelf) {
                 Rigidbody enemyRigidbody = other.GetComponent<Rigidbody>();
                 enemyRigidbody.linearVelocity = enemyRigidbody.linearVelocity.normalized * powerUpForce;
                 powerUpRing.SetActive(false);
             }
         }
+    }
+
+    IEnumerator PowerupCountdownRoutine() {
+        yield return new WaitForSeconds(10);
+        powerUpRing.SetActive(false);
+
     }
 }

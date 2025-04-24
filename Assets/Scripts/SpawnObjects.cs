@@ -5,8 +5,7 @@ public class FollowPlayer : MonoBehaviour
 
     public GameObject enemyPrefab;
     public GameObject powerUpPrefab;
-    public float spawnLimitMin = -8f;
-    public float spawnLimitMax = 8f;
+    public float spawnLimit = 8;
     public int enemiesOnMapLimit = 1;
     public int powerUpSpawnInterval = 15;
 
@@ -35,6 +34,6 @@ public class FollowPlayer : MonoBehaviour
         
     }
     Vector3 GenerateNewSpawnLocation() {
-        return new Vector3(Random.Range(spawnLimitMin, spawnLimitMax), 0.01f, Random.Range(spawnLimitMin, spawnLimitMax));
+        return new Vector3(Random.Range(-spawnLimit, spawnLimit), 0.01f, Random.Range(-spawnLimit, spawnLimit));
     }
 }
