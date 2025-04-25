@@ -23,16 +23,13 @@ public class PlayerControllerX : MonoBehaviour
 
     void Update()
     {
-        // Add force to player in direction of the focal point (and camera)
         float verticalInput = Input.GetAxis("Vertical");
         playerRb.AddForce(focalPoint.transform.forward * verticalInput * speed * Time.deltaTime); 
 
-        // Set powerup indicator position to beneath player
         powerupIndicator.transform.position = transform.position + new Vector3(0, -0.6f, 0);
 
     }
 
-    // If Player collides with powerup, activate powerup
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Powerup"))
@@ -44,7 +41,6 @@ public class PlayerControllerX : MonoBehaviour
         }
     }
 
-    // Coroutine to count down powerup duration
     IEnumerator PowerupCooldown()
     {
         yield return new WaitForSeconds(powerUpDuration);
@@ -52,7 +48,6 @@ public class PlayerControllerX : MonoBehaviour
         powerupIndicator.SetActive(false);
     }
 
-    // If Player collides with enemy
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Enemy"))
